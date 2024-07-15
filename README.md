@@ -23,8 +23,8 @@ Cada archivo contiene una implementación clara y comentada de la estructura de 
 1. Clona este repositorio:
 
        bash
-       git clone https://github.com/tu_usuario/proyecto-estructuras-datos-js.git
-       cd proyecto-estructuras-datos-js
+       git clone https://github.com/bryandejesusrt/data-structure-javascript.git
+       cd data-structure-javascript
    
 3. Explora cada archivo para entender cómo se implementa cada estructura de datos.
 4. Integra estas estructuras en tus propios proyectos para mejorar la eficiencia y organización de tus datos.
