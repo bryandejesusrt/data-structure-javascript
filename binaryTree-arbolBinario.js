@@ -1,114 +1,114 @@
 // Clase Nodo (Node)
-class Nodo {
-  constructor(dato) {
-    this.dato = dato;
-    this.izquierdo = null;
-    this.derecho = null;
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.left = null;
+    this.right = null;
   }
 }
 
 // Clase ArbolBinario (BinaryTree)
-class ArbolBinario {
+class BinaryTree {
   constructor() {
-    this.raiz = null;
+    this.root = null;
   }
 
   // Método agregar (add): agrega un nodo al árbol binario
-  agregar(dato) {
-    const nuevoNodo = new Nodo(dato);
-    if (this.raiz === null) {
-      this.raiz = nuevoNodo;
+  add(data) {
+    const newNode = new Node(data);
+    if (this.root === null) {
+      this.root = newNode;
     } else {
-      this.agregarNodo(this.raiz, nuevoNodo);
+      this.addNode(this.root, newNode);
     }
   }
 
-  agregarNodo(nodo, nuevoNodo) {
-    if (nuevoNodo.dato < nodo.dato) {
-      if (nodo.izquierdo === null) {
-        nodo.izquierdo = nuevoNodo;
+  addNode(node, newNode) {
+    if (newNode.data < node.data) {
+      if (node.left === null) {
+        node.left = newNode;
       } else {
-        this.agregarNodo(nodo.izquierdo, nuevoNodo);
+        this.addNode(node.left, newNode);
       }
     } else {
-      if (nodo.derecho === null) {
-        nodo.derecho = nuevoNodo;
+      if (node.right === null) {
+        node.right = newNode;
       } else {
-        this.agregarNodo(nodo.derecho, nuevoNodo);
+        this.addNode(node.right, newNode);
       }
     }
   }
 
   // Método buscar (find): busca un nodo con el dato especificado
-  buscar(dato) {
-    return this.buscarNodo(this.raiz, dato);
+  find(data) {
+    return this.findNode(this.root, data);
   }
 
-  buscarNodo(nodo, dato) {
-    if (nodo === null) {
+  findNode(node, data) {
+    if (node === null) {
       return null;
     }
-    if (dato < nodo.dato) {
-      return this.buscarNodo(nodo.izquierdo, dato);
-    } else if (dato > nodo.dato) {
-      return this.buscarNodo(nodo.derecho, dato);
+    if (data < node.data) {
+      return this.findNode(node.left, data);
+    } else if (data > node.data) {
+      return this.findNode(node.right, data);
     } else {
-      return nodo;
+      return node;
     }
   }
 
   // Método inOrden (inOrder): recorre el árbol en inorden
-  inOrden(nodo) {
-    if (nodo !== null) {
-      this.inOrden(nodo.izquierdo);
-      console.log(nodo.dato);
-      this.inOrden(nodo.derecho);
+  inOrder(node) {
+    if (node !== null) {
+      this.inOrder(node.left);
+      console.log(node.data);
+      this.inOrder(node.right);
     }
   }
 
   // Método preOrden (preOrder): recorre el árbol en preorden
-  preOrden(nodo) {
-    if (nodo !== null) {
-      console.log(nodo.dato);
-      this.preOrden(nodo.izquierdo);
-      this.preOrden(nodo.derecho);
+  preOrder(node) {
+    if (node !== null) {
+      console.log(node.data);
+      this.preOrder(node.left);
+      this.preOrder(node.right);
     }
   }
 
   // Método postOrden (postOrder): recorre el árbol en postorden
-  postOrden(nodo) {
-    if (nodo !== null) {
-      this.postOrden(nodo.izquierdo);
-      this.postOrden(nodo.derecho);
-      console.log(nodo.dato);
+  postOrder(node) {
+    if (node !== null) {
+      this.postOrder(node.left);
+      this.postOrder(node.right);
+      console.log(node.data);
     }
   }
 
   // Método imprimir (print): imprime el árbol en inorden
-  imprimir() {
-    this.inOrden(this.raiz);
+  print() {
+    this.inOrder(this.root);
   }
 }
 
-// Ejemplo de uso de la clase ArbolBinario
-const arbolBinario = new ArbolBinario();
-arbolBinario.agregar(8);
-arbolBinario.agregar(3);
-arbolBinario.agregar(10);
-arbolBinario.agregar(1);
-arbolBinario.agregar(6);
-arbolBinario.agregar(14);
-arbolBinario.agregar(4);
-arbolBinario.agregar(7);
-arbolBinario.agregar(13);
+// Ejemplo de uso de la clase ArbolBinario (BinaryTree)
+const binaryTree = new BinaryTree();
+binaryTree.add(8);
+binaryTree.add(3);
+binaryTree.add(10);
+binaryTree.add(1);
+binaryTree.add(6);
+binaryTree.add(14);
+binaryTree.add(4);
+binaryTree.add(7);
+binaryTree.add(13);
 
 console.log("Impresión en inorden:");
-arbolBinario.imprimir(); // Imprime el árbol en inorden
+binaryTree.print(); // Imprime el árbol en inorden
 
 console.log("Impresión en preorden:");
-arbolBinario.preOrden(arbolBinario.raiz); // Imprime el árbol en preorden
+binaryTree.preOrder(binaryTree.root); // Imprime el árbol en preorden
 
 console.log("Impresión en postorden:");
-arbolBinario.postOrden(arbolBinario.raiz); // Imprime el árbol en postorden
+binaryTree.postOrder(binaryTree.root); // Imprime el árbol en postorden
 
-console.log("Buscar 6:", arbolBinario.buscar(6)); // Busca y retorna el nodo con el dato 6
+console.log("Buscar 6:", binaryTree.find(6)); // Busca y retorna el nodo con el dato 6

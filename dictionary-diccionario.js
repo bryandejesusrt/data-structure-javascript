@@ -1,5 +1,5 @@
 // Clase Diccionario (Dictionary)
-class Diccionario {
+class Dictionary {
   constructor() {
     this.items = {};
   }
@@ -54,23 +54,23 @@ class Diccionario {
   }
 }
 
-// Ejemplo de uso de la clase Diccionario
-const diccionario = new Diccionario();
-diccionario.set("nombre", "Bryan"); // Agrega el par clave-valor ('nombre', 'Bryan')
-diccionario.set("edad", 25); // Agrega el par clave-valor ('edad', 25)
-diccionario.set("pais", "España"); // Agrega el par clave-valor ('pais', 'España')
+// Ejemplo de uso de la clase Diccionario (Dictionary)
+const dictionary = new Dictionary();
+dictionary.set("nombre", "Bryan"); // Agrega el par clave-valor ('nombre', 'Bryan')
+dictionary.set("edad", 25); // Agrega el par clave-valor ('edad', 25)
+dictionary.set("pais", "España"); // Agrega el par clave-valor ('pais', 'España')
 
-diccionario.print(); // Imprime: { nombre: 'Bryan', edad: 25, pais: 'España' }
+dictionary.print(); // Imprime: { nombre: 'Bryan', edad: 25, pais: 'España' }
 
-console.log(diccionario.get("nombre")); // Retorna: 'Bryan'
-console.log(diccionario.has("edad")); // Verifica si existe la clave 'edad': true
-console.log(diccionario.size()); // Retorna el tamaño del diccionario: 3
+console.log(dictionary.get("nombre")); // Retorna: 'Bryan'
+console.log(dictionary.has("edad")); // Verifica si existe la clave 'edad': true
+console.log(dictionary.size()); // Retorna el tamaño del diccionario: 3
 
-diccionario.delete("pais"); // Elimina el par clave-valor con clave 'pais'
-diccionario.print(); // Imprime: { nombre: 'Bryan', edad: 25 }
+dictionary.delete("pais"); // Elimina el par clave-valor con clave 'pais'
+dictionary.print(); // Imprime: { nombre: 'Bryan', edad: 25 }
 
-console.log(diccionario.keys()); // Retorna todas las claves: ['nombre', 'edad']
-console.log(diccionario.values()); // Retorna todos los valores: ['Bryan', 25]
+console.log(dictionary.keys()); // Retorna todas las claves: ['nombre', 'edad']
+console.log(dictionary.values()); // Retorna todos los valores: ['Bryan', 25]
 
-diccionario.clear(); // Elimina todos los pares clave-valor
-diccionario.print(); // Imprime: {}
+dictionary.clear(); // Elimina todos los pares clave-valor
+dictionary.print(); // Imprime: {}

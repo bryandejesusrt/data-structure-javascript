@@ -1,87 +1,86 @@
-// Clase Nodo (Node)
-class Nodo {
-    constructor(dato) {
-      this.dato = dato;
-      this.hijos = [];
-    }
-  
-    // Método agregarHijo: agrega un nuevo nodo hijo
-    agregarHijo(nodo) {
-      this.hijos.push(nodo);
+// Node class
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.children = [];
+  }
+
+  // Método agregarHijo: agrega un nuevo nodo hijo
+  agregarHijo(node) {
+    this.children.push(node);
+  }
+}
+
+// Tree class
+class Tree {
+  constructor(data) {
+    this.root = new Node(data);
+  }
+
+  // Método add: agrega un nodo a un nodo padre especificado
+  add(data, parentData) {
+    const newNode = new Node(data);
+    const parentNode = this.find(this.root, parentData);
+
+    if (parentNode) {
+      parentNode.agregarHijo(newNode);
+    } else {
+      console.log("Parent node not found");
     }
   }
-  
-  // Clase Arbol (Tree)
-  class Arbol {
-    constructor(dato) {
-      this.raiz = new Nodo(dato);
+
+  // Método find: busca un nodo con el dato especificado
+  find(node, data) {
+    if (node.data === data) {
+      return node;
     }
-  
-    // Método agregar (add): agrega un nodo a un nodo padre especificado
-    agregar(dato, datoPadre) {
-      const nuevoNodo = new Nodo(dato);
-      const nodoPadre = this.buscar(this.raiz, datoPadre);
-  
-      if (nodoPadre) {
-        nodoPadre.agregarHijo(nuevoNodo);
-      } else {
-        console.log("Nodo padre no encontrado");
+
+    for (let child of node.children) {
+      const result = this.find(child, data);
+      if (result) {
+        return result;
       }
     }
-  
-    // Método buscar (find): busca un nodo con el dato especificado
-    buscar(nodo, dato) {
-      if (nodo.dato === dato) {
-        return nodo;
+
+    return null;
+  }
+
+  // Método preOrder: recorre el árbol en preorden
+  preOrder(node) {
+    if (node !== null) {
+      console.log(node.data);
+      for (let child of node.children) {
+        this.preOrder(child);
       }
-  
-      for (let hijo of nodo.hijos) {
-        const resultado = this.buscar(hijo, dato);
-        if (resultado) {
-          return resultado;
-        }
-      }
-  
-      return null;
-    }
-  
-    // Método preOrden (preOrder): recorre el árbol en preorden
-    preOrden(nodo) {
-      if (nodo !== null) {
-        console.log(nodo.dato);
-        for (let hijo of nodo.hijos) {
-          this.preOrden(hijo);
-        }
-      }
-    }
-  
-    // Método postOrden (postOrder): recorre el árbol en postorden
-    postOrden(nodo) {
-      if (nodo !== null) {
-        for (let hijo of nodo.hijos) {
-          this.postOrden(hijo);
-        }
-        console.log(nodo.dato);
-      }
-    }
-  
-    // Método imprimir (print): imprime el árbol en preorden
-    imprimir() {
-      this.preOrden(this.raiz);
     }
   }
-  
-  // Ejemplo de uso de la clase Arbol
-  const arbol = new Arbol("raiz");
-  arbol.agregar("hijo1", "raiz");      // Agrega "hijo1" a "raiz"
-  arbol.agregar("hijo2", "raiz");      // Agrega "hijo2" a "raiz"
-  arbol.agregar("nieto1", "hijo1");    // Agrega "nieto1" a "hijo1"
-  arbol.agregar("nieto2", "hijo1");    // Agrega "nieto2" a "hijo1"
-  arbol.agregar("nieto3", "hijo2");    // Agrega "nieto3" a "hijo2"
-  
-  console.log("Impresión en preorden:");
-  arbol.imprimir();  // Imprime el árbol en preorden
-  
-  console.log("Impresión en postorden:");
-  arbol.postOrden(arbol.raiz);  // Imprime el árbol en postorden
-  
+
+  // Método postOrder: recorre el árbol en postorden
+  postOrder(node) {
+    if (node !== null) {
+      for (let child of node.children) {
+        this.postOrder(child);
+      }
+      console.log(node.data);
+    }
+  }
+
+  // Método print: imprime el árbol en preorden
+  print() {
+    this.preOrder(this.root);
+  }
+}
+
+// Ejemplo de uso de la clase Tree
+const tree = new Tree("root");
+tree.add("child1", "root"); // Agrega "child1" a "root"
+tree.add("child2", "root"); // Agrega "child2" a "root"
+tree.add("grandchild1", "child1"); // Agrega "grandchild1" a "child1"
+tree.add("grandchild2", "child1"); // Agrega "grandchild2" a "child1"
+tree.add("grandchild3", "child2"); // Agrega "grandchild3" a "child2"
+
+console.log("Preorder traversal:");
+tree.print(); // Imprime el árbol en preorden
+
+console.log("Postorder traversal:");
+tree.postOrder(tree.root); // Imprime el árbol en postorden

@@ -1,71 +1,71 @@
 // Clase Nodo (Node)
-class Nodo {
-  constructor(dato) {
-    this.dato = dato;
-    this.siguiente = null;
+class Node {
+  constructor(data) {
+    this.data = data;
+    this.next = null;
   }
 }
 
 // Clase ListaEnlazada (LinkedList)
-class ListaEnlazada {
+class LinkedList {
   constructor() {
-    this.cabeza = null;
-    this.tamaño = 0;
+    this.head = null;
+    this.size = 0;
   }
 
   // Método agregar (add): agrega un nuevo nodo al final de la lista
-  agregar(dato) {
-    const nuevoNodo = new Nodo(dato);
+  add(data) {
+    const newNode = new Node(data);
 
-    if (this.cabeza === null) {
-      this.cabeza = nuevoNodo;
+    if (this.head === null) {
+      this.head = newNode;
     } else {
-      let actual = this.cabeza;
-      while (actual.siguiente) {
-        actual = actual.siguiente;
+      let current = this.head;
+      while (current.next) {
+        current = current.next;
       }
-      actual.siguiente = nuevoNodo;
+      current.next = newNode;
     }
 
-    this.tamaño++;
+    this.size++;
   }
 
   // Método eliminar (remove): elimina el nodo con el dato especificado
-  eliminar(dato) {
-    if (this.cabeza === null) {
+  remove(data) {
+    if (this.head === null) {
       return null;
     }
 
-    if (this.cabeza.dato === dato) {
-      this.cabeza = this.cabeza.siguiente;
+    if (this.head.data === data) {
+      this.head = this.head.next;
     } else {
-      let actual = this.cabeza;
-      let previo = null;
+      let current = this.head;
+      let previous = null;
 
-      while (actual !== null && actual.dato !== dato) {
-        previo = actual;
-        actual = actual.siguiente;
+      while (current !== null && current.data !== data) {
+        previous = current;
+        current = current.next;
       }
 
-      if (actual === null) {
+      if (current === null) {
         return null;
       }
 
-      previo.siguiente = actual.siguiente;
+      previous.next = current.next;
     }
 
-    this.tamaño--;
+    this.size--;
   }
 
   // Método buscar (find): busca un nodo con el dato especificado
-  buscar(dato) {
-    let actual = this.cabeza;
+  find(data) {
+    let current = this.head;
 
-    while (actual !== null) {
-      if (actual.dato === dato) {
-        return actual;
+    while (current !== null) {
+      if (current.data === data) {
+        return current;
       }
-      actual = actual.siguiente;
+      current = current.next;
     }
 
     return null;
@@ -73,39 +73,39 @@ class ListaEnlazada {
 
   // Método isEmpty: verifica si la lista está vacía
   isEmpty() {
-    return this.tamaño === 0;
+    return this.size === 0;
   }
 
   // Método size: retorna el número de nodos en la lista
-  size() {
-    return this.tamaño;
+  getSize() {
+    return this.size;
   }
 
   // Método imprimir (print): imprime los datos de los nodos de la lista
-  imprimir() {
-    let actual = this.cabeza;
-    const elementos = [];
+  print() {
+    let current = this.head;
+    const elements = [];
 
-    while (actual !== null) {
-      elementos.push(actual.dato);
-      actual = actual.siguiente;
+    while (current !== null) {
+      elements.push(current.data);
+      current = current.next;
     }
 
-    console.log(elementos.join(" -> "));
+    console.log(elements.join(" -> "));
   }
 }
 
-// Ejemplo de uso de la clase ListaEnlazada
-const lista = new ListaEnlazada();
-lista.agregar(1); // Agrega 1 a la lista
-lista.agregar(2); // Agrega 2 a la lista
-lista.agregar(3); // Agrega 3 a la lista
+// Ejemplo de uso de la clase ListaEnlazada (LinkedList)
+const list = new LinkedList();
+list.add(1); // Agrega 1 a la lista
+list.add(2); // Agrega 2 a la lista
+list.add(3); // Agrega 3 a la lista
 
-lista.imprimir(); // Imprime: 1 -> 2 -> 3
+list.print(); // Imprime: 1 -> 2 -> 3
 
-console.log(lista.buscar(2)); // Retorna el nodo con el dato 2
-console.log(lista.size()); // Retorna el tamaño de la lista: 3
-console.log(lista.isEmpty()); // Verifica si la lista está vacía: false
+console.log(list.find(2)); // Retorna el nodo con el dato 2
+console.log(list.getSize()); // Retorna el tamaño de la lista: 3
+console.log(list.isEmpty()); // Verifica si la lista está vacía: false
 
-lista.eliminar(2); // Elimina el nodo con el dato 2
-lista.imprimir(); // Imprime: 1 -> 3
+list.remove(2); // Elimina el nodo con el dato 2
+list.print(); // Imprime: 1 -> 3

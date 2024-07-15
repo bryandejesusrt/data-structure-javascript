@@ -1,107 +1,110 @@
 // Clase Grafo (Graph)
-class Grafo {
+class Graph {
   constructor() {
     this.vertices = {};
   }
 
   // Método agregarVertice (addVertex): agrega un nuevo vértice al grafo
-  agregarVertice(vertice) {
-    if (!this.vertices[vertice]) {
-      this.vertices[vertice] = [];
+  addVertex(vertex) {
+    if (!this.vertices[vertex]) {
+      this.vertices[vertex] = [];
     }
   }
 
   // Método agregarArista (addEdge): agrega una arista entre dos vértices
-  agregarArista(vertice1, vertice2) {
-    if (!this.vertices[vertice1]) {
-      this.agregarVertice(vertice1);
+  addEdge(vertex1, vertex2) {
+    if (!this.vertices[vertex1]) {
+      this.addVertex(vertex1);
     }
-    if (!this.vertices[vertice2]) {
-      this.agregarVertice(vertice2);
+    if (!this.vertices[vertex2]) {
+      this.addVertex(vertex2);
     }
-    this.vertices[vertice1].push(vertice2);
-    this.vertices[vertice2].push(vertice1); // Para un grafo no dirigido
+    this.vertices[vertex1].push(vertex2);
+    this.vertices[vertex2].push(vertex1); // Para un grafo no dirigido
   }
 
   // Método eliminarArista (removeEdge): elimina una arista entre dos vértices
-  eliminarArista(vertice1, vertice2) {
-    this.vertices[vertice1] = this.vertices[vertice1].filter(
-      (v) => v !== vertice2
+  removeEdge(vertex1, vertex2) {
+    this.vertices[vertex1] = this.vertices[vertex1].filter(
+      (v) => v !== vertex2
     );
-    this.vertices[vertice2] = this.vertices[vertice2].filter(
-      (v) => v !== vertice1
+    this.vertices[vertex2] = this.vertices[vertex2].filter(
+      (v) => v !== vertex1
     );
   }
 
   // Método eliminarVertice (removeVertex): elimina un vértice y sus aristas asociadas
-  eliminarVertice(vertice) {
-    while (this.vertices[vertice].length) {
-      const adyacente = this.vertices[vertice].pop();
-      this.eliminarArista(vertice, adyacente);
+  removeVertex(vertex) {
+    while (this.vertices[vertex].length) {
+      const adjacent = this.vertices[vertex].pop();
+      this.removeEdge(vertex, adjacent);
     }
-    delete this.vertices[vertice];
+    delete this.vertices[vertex];
   }
 
   // Método recorridoDFS (DFS): recorre el grafo en profundidad (Depth-First Search)
-  recorridoDFS(inicio) {
-    const visitados = {};
-    this.DFSUtil(inicio, visitados);
+  DFS(start) {
+    const visited = {};
+    this.DFSUtil(start, visited);
   }
 
-  DFSUtil(vertice, visitados) {
-    visitados[vertice] = true;
-    console.log(vertice);
-    for (let adyacente of this.vertices[vertice]) {
-      if (!visitados[adyacente]) {
-        this.DFSUtil(adyacente, visitados);
+  DFSUtil(vertex, visited) {
+    visited[vertex] = true;
+    console.log(vertex);
+    for (let adjacent of this.vertices[vertex]) {
+      if (!visited[adjacent]) {
+        this.DFSUtil(adjacent, visited);
       }
     }
   }
 
   // Método recorridoBFS (BFS): recorre el grafo en anchura (Breadth-First Search)
-  recorridoBFS(inicio) {
-    const visitados = {};
-    const cola = [inicio];
+  BFS(start) {
+    const visited = {};
+    const queue = [start];
 
-    visitados[inicio] = true;
+    visited[start] = true;
 
-    while (cola.length) {
-      const vertice = cola.shift();
-      console.log(vertice);
+    while (queue.length) {
+      const vertex = queue.shift();
+      console.log(vertex);
 
-      for (let adyacente of this.vertices[vertice]) {
-        if (!visitados[adyacente]) {
-          visitados[adyacente] = true;
-          cola.push(adyacente);
+      for (let adjacent of this.vertices[vertex]) {
+        if (!visited[adjacent]) {
+          visited[adjacent] = true;
+          queue.push(adjacent);
         }
       }
     }
   }
 
   // Método imprimir (print): imprime la lista de adyacencia del grafo
-  imprimir() {
-    for (let vertice in this.vertices) {
-      console.log(`${vertice} -> ${this.vertices[vertice].join(", ")}`);
+  print() {
+    for (let vertex in this.vertices) {
+      console.log(`${vertex} -> ${this.vertices[vertex].join(", ")}`);
     }
   }
 }
 
-// Ejemplo de uso de la clase Grafo
-const grafo = new Grafo();
-grafo.agregarVertice("A");
-grafo.agregarVertice("B");
-grafo.agregarVertice("C");
-grafo.agregarVertice("D");
-grafo.agregarVertice("E");
+// Ejemplo de uso de la clase Grafo (Graph)
+const graph = new Graph();
+graph.addVertex("A");
+graph.addVertex("B");
+graph.addVertex("C");
+graph.addVertex("D");
+graph.addVertex("E");
 
-grafo.agregarArista("A", "B");
-grafo.agregarArista("A", "C");
-grafo.agregarArista("B", "D");
-grafo.agregarArista("C", "E");
-grafo.agregarArista("D", "E");
+graph.addEdge("A", "B");
+graph.addEdge("A", "C");
+graph.addEdge("B", "D");
+graph.addEdge("C", "E");
+graph.addEdge("D", "E");
 
 console.log("Impresión del grafo:");
-grafo.imprimir(); // Imprime la lista de adyacencia del grafo
+graph.print(); // Imprime la lista de adyacencia del grafo
 
 console.log("Recorrido DFS desde 'A':");
-grafo.recorridoDFS("A"); // Recorre el grafo en pro
+graph.DFS("A"); // Recorre el grafo en profundidad (DFS)
+
+console.log("Recorrido BFS desde 'A':");
+graph.BFS("A"); // Recorre el grafo en anchura (BFS)
